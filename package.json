@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "tsx src/server.ts"
   },
   "keywords": [],
   "author": "",
@@ -13,6 +13,8 @@
     "fastify": "^4.17.0"
   },
   "devDependencies": {
+    "@types/node": "^20.1.2",
+    "tsx": "^3.12.7",
     "typescript": "^5.0.4"
   }
 }
