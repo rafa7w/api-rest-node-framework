@@ -1,10 +1,14 @@
 import { FastifyInstance } from 'fastify'
 import { z } from 'zod'
-import { randomUUID, setEngine } from 'node:crypto'
+import { randomUUID } from 'node:crypto'
 import { knex } from '../database'
 import { checkSessionIdExists } from '../middlewares/check-session-id-exists'
 
 export async function transactionsRoutes(app: FastifyInstance) {
+  app.addHook('preHandler', async (request, reply) => {
+    // tudo aqui fica valendo apenas para o plugin de transações
+  })
+
   app.get('/', {
     preHandler: [checkSessionIdExists],
   }, async (request, reply) => {
