@@ -1,5 +1,12 @@
-import 'dotenv/config' 
+// import 'dotenv/config' sempre carrega exclusivamente o arquivo .env
+import { config } from 'dotenv'
 import { z } from 'zod'
+
+if (process.env.NODE_ENV === 'test') {
+  config({path: '.env.test'})
+} else {
+  config()
+}
 
 // formato que vamos receber das variáveis de ambiente
 const envSchema = z.object({
