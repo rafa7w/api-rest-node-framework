@@ -9,6 +9,8 @@ export async function transactionsRoutes(app: FastifyInstance) {
     // tudo aqui fica valendo apenas para o plugin de transações
   })
 
+  // preHandler no Fastify é uma função que é executada antes de uma rota
+
   app.get('/', {
     preHandler: [checkSessionIdExists],
   }, async (request, reply) => {
@@ -71,7 +73,8 @@ export async function transactionsRoutes(app: FastifyInstance) {
 
     if (!sessionId) {
       sessionId = randomUUID()
-
+      
+      // definindo cookie
       reply.cookie('sessionId', sessionId, {
         // quais endereços esse cookie vai estar disponível
         // quais rotas do backend vão poder acessar esse cookie
