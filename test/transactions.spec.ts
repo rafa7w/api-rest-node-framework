@@ -1,7 +1,7 @@
 import { it, test, beforeAll, afterAll, describe, expect, beforeEach } from 'vitest'
 import { execSync } from 'node:child_process'
 import request from 'supertest' 
-import { app } from '../app'
+import { app } from '../src/app'
 
 describe('Transactions routes', () => {
   // executar um código antes que todos os testes executem uma única vez

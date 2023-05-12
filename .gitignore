@@ -130,6 +130,8 @@ dist
 .yarn/install-state.gz
 .pnp.*
 
-# sqlite
-db/app.db
-db/test.db
+# database
+db/*.db
+
+# build
+build
