@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify'
 import { z } from 'zod'
-import { randomUUID } from 'node:crypto'
+import { randomUUID, setEngine } from 'node:crypto'
 import { knex } from '../database'
 
 export async function transactionsRoutes(app: FastifyInstance) {
@@ -43,10 +43,24 @@ export async function transactionsRoutes(app: FastifyInstance) {
     const { title, amount, type } = createTransactionBodySchema.parse(request.body)
     // nada aqui embaixo vai executar se não passar o parse, pois dá um throw no erro
 
+    let sessionId = request.cookies.sessionId
+
+    if (!sessionId) {
+      sessionId = randomUUID()
+
+      reply.cookie('sessionId', sessionId, {
+        // quais endereços esse cookie vai estar disponível
+        // quais rotas do backend vão poder acessar esse cookie
+        path: '/', // / qualquer rota pode acessar 
+        maxAge: 1000 * 60 * 60 * 24 * 7, // passa em ms o tempo que o cookie deve durar no navegador do usuário
+      })
+    }
+
     await knex('transactions').insert({
       id: randomUUID(),
       title,
       amount: type === 'credit' ? amount : amount * -1,
+      session_id: sessionId
     })
 
     // em rotas criação dentro da nossa API, geralmente não se faz retornos
