@@ -19,7 +19,7 @@ export async function transactionsRoutes(app: FastifyInstance) {
     await knex('transactions').insert({
       id: randomUUID(),
       title,
-      amount: type === 'credit' ? amount : amount * -1
+      amount: type === 'credit' ? amount : amount * -1,
     })
 
     // em rotas criação dentro da nossa API, geralmente não se faz retornos
